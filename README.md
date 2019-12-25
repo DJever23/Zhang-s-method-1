@@ -3,9 +3,17 @@
 
 实现平台Ubuntu18.04+OpenCV4.1。
 
-主要包含：CameraCalibration.cpp可直接导入项目中运行。
-          left.zip用于标定的图像，需要导入项目工程中。
-          calibdata.txt存放用于标定的图像路径，需要导入项目工程中。
+主要包含：
+1.CameraCalibration.cpp--标定文件。
+2.left.zip用于标定的图像。
+3.calibdata.txt存放用于标定的图像路径。
+4.CMakeLists.txt--编译文件。
+5.编译方法：
+	sudo cmake .
+	sudo make
+	./cal1
+6.生成result.txt文件用于存储校正参数。
+     
 
 问题点：
 1.修改main的类型为int，并在程序最后return 0；
