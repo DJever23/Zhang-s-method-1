@@ -5,14 +5,17 @@
 
 主要包含：
 1.CameraCalibration.cpp--标定文件。
-2.left.zip用于标定的图像。
-3.calibdata.txt存放用于标定的图像路径。
+2.left.zip--存放标定的图像。
+3.calibdata.txt--存放用于标定的图像路径。
 4.CMakeLists.txt--编译文件。
-5.编译方法：
+5.cal1--可执行文件。
+6.cali_log.txt--存储执行cal1时的log。
+7.生成result.txt文件用于存储校正参数。
+8.编译方法：
 	sudo cmake .
 	sudo make
 	./cal1
-6.生成result.txt文件用于存储校正参数。
+
      
 
 问题点：
