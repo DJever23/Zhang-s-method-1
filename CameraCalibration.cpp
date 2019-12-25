@@ -2,37 +2,45 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/calib3d/calib3d.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include <opencv2/imgproc/types_c.h>  
 #include <iostream>
 #include <fstream>
 
 using namespace cv;
 using namespace std;
 
-void main() 
+main() 
 {
-	ifstream fin("calibdata.txt"); /* 标定所用图像文件的路径 */
-	ofstream fout("caliberation_result.txt");  /* 保存标定结果的文件 */	
+	ifstream fin("train.txt"); /* 标定所用图像文件的路径 */
+	ofstream fout("result.txt");  /* 保存标定结果的文件 */	
 	//读取每一幅图像，从中提取出角点，然后对角点进行亚像素精确化	
-	cout<<"开始提取角点………………";
+	cout<<"开始提取角点………………\n";
+	cout<<"dengjie1\n";
 	int image_count=0;  /* 图像数量 */
 	Size image_size;  /* 图像的尺寸 */
 	Size board_size = Size(9,6);    /* 标定板上每行、列的角点数 */
 	vector<Point2f> image_points_buf;  /* 缓存每幅图像上检测到的角点 */
 	vector<vector<Point2f>> image_points_seq; /* 保存检测到的所有角点 */
 	string filename;
+	//string left01;
+	//cout<<"filename is "<<filename<<endl;
 	int count= -1 ;//用于存储角点个数。
+	//int count= 0 ;
+	//while (getline(fin,filename))
 	while (getline(fin,filename))
 	{
 		image_count++;		
 		// 用于观察检验输出
 		cout<<"image_count = "<<image_count<<endl;		
 		/* 输出检验*/
-		cout<<"-->count = "<<count;		
+		cout<<"-->count = "<<count<<endl;		
+		//Mat imageInput=imread(filename);
 		Mat imageInput=imread(filename);
 		if (image_count == 1)  //读入第一张图片时获取图像宽高信息
 		{
 			image_size.width = imageInput.cols;
-			image_size.height =imageInput.rows;			
+			image_size.height =imageInput.rows;
+			cout<<"1dengjie_imageInput.cols = "<<imageInput.cols<<endl;			
 			cout<<"image_size.width = "<<image_size.width<<endl;
 			cout<<"image_size.height = "<<image_size.height<<endl;
 		}
@@ -168,7 +176,8 @@ void main()
 		fout<<rvecsMat[i]<<endl<<endl;   
 	}   
 	std::cout<<"完成保存"<<endl; 
+	std::cout<<"dengjie_finish"<<endl; 
 	fout<<endl;
 	
-	return ;
+	return 0;
 }
