@@ -11,32 +11,27 @@ using namespace std;
 
 main() 
 {
-	ifstream fin("train.txt"); /* ±ê¶¨ËùÓÃÍ¼ÏñÎÄ¼şµÄÂ·¾¶ */
-	ofstream fout("result.txt");  /* ±£´æ±ê¶¨½á¹ûµÄÎÄ¼ş */	
-	//¶ÁÈ¡Ã¿Ò»·ùÍ¼Ïñ£¬´ÓÖĞÌáÈ¡³ö½Çµã£¬È»ºó¶Ô½Çµã½øĞĞÑÇÏñËØ¾«È·»¯	
-	cout<<"¿ªÊ¼ÌáÈ¡½Çµã¡­¡­¡­¡­¡­¡­\n";
+	ifstream fin("train.txt"); /* æ ‡å®šæ‰€ç”¨å›¾åƒæ–‡ä»¶çš„è·¯å¾„ */
+	ofstream fout("result.txt");  /* ä¿å­˜æ ‡å®šç»“æœçš„æ–‡ä»¶ */	
+	//è¯»å–æ¯ä¸€å¹…å›¾åƒï¼Œä»ä¸­æå–å‡ºè§’ç‚¹ï¼Œç„¶åå¯¹è§’ç‚¹è¿›è¡Œäºšåƒç´ ç²¾ç¡®åŒ–	
+	cout<<"å¼€å§‹æå–è§’ç‚¹â€¦â€¦â€¦â€¦â€¦â€¦\n";
 	cout<<"dengjie1\n";
-	int image_count=0;  /* Í¼ÏñÊıÁ¿ */
-	Size image_size;  /* Í¼ÏñµÄ³ß´ç */
-	Size board_size = Size(9,6);    /* ±ê¶¨°åÉÏÃ¿ĞĞ¡¢ÁĞµÄ½ÇµãÊı */
-	vector<Point2f> image_points_buf;  /* »º´æÃ¿·ùÍ¼ÏñÉÏ¼ì²âµ½µÄ½Çµã */
-	vector<vector<Point2f>> image_points_seq; /* ±£´æ¼ì²âµ½µÄËùÓĞ½Çµã */
+	int image_count=0;  /* å›¾åƒæ•°é‡ */
+	Size image_size;  /* å›¾åƒçš„å°ºå¯¸ */
+	Size board_size = Size(9,6);    /* æ ‡å®šæ¿ä¸Šæ¯è¡Œã€åˆ—çš„è§’ç‚¹æ•° */
+	vector<Point2f> image_points_buf;  /* ç¼“å­˜æ¯å¹…å›¾åƒä¸Šæ£€æµ‹åˆ°çš„è§’ç‚¹ */
+	vector<vector<Point2f>> image_points_seq; /* ä¿å­˜æ£€æµ‹åˆ°çš„æ‰€æœ‰è§’ç‚¹ */
 	string filename;
-	//string left01;
-	//cout<<"filename is "<<filename<<endl;
-	int count= -1 ;//ÓÃÓÚ´æ´¢½Çµã¸öÊı¡£
-	//int count= 0 ;
-	//while (getline(fin,filename))
+	int count= -1 ;//ç”¨äºå­˜å‚¨è§’ç‚¹ä¸ªæ•°ã€‚
 	while (getline(fin,filename))
 	{
 		image_count++;		
-		// ÓÃÓÚ¹Û²ì¼ìÑéÊä³ö
+		// ç”¨äºè§‚å¯Ÿæ£€éªŒè¾“å‡º
 		cout<<"image_count = "<<image_count<<endl;		
-		/* Êä³ö¼ìÑé*/
+		/* è¾“å‡ºæ£€éªŒ*/
 		cout<<"-->count = "<<count<<endl;		
-		//Mat imageInput=imread(filename);
 		Mat imageInput=imread(filename);
-		if (image_count == 1)  //¶ÁÈëµÚÒ»ÕÅÍ¼Æ¬Ê±»ñÈ¡Í¼Ïñ¿í¸ßĞÅÏ¢
+		if (image_count == 1)  //è¯»å…¥ç¬¬ä¸€å¼ å›¾ç‰‡æ—¶è·å–å›¾åƒå®½é«˜ä¿¡æ¯
 		{
 			image_size.width = imageInput.cols;
 			image_size.height =imageInput.rows;
@@ -45,38 +40,38 @@ main()
 			cout<<"image_size.height = "<<image_size.height<<endl;
 		}
 
-		/* ÌáÈ¡½Çµã */
+		/* æå–è§’ç‚¹ */
 		if (0 == findChessboardCorners(imageInput,board_size,image_points_buf))
 		{			
-			cout<<"can not find chessboard corners!\n"; //ÕÒ²»µ½½Çµã
+			cout<<"can not find chessboard corners!\n"; //æ‰¾ä¸åˆ°è§’ç‚¹
 			exit(1);
 		} 
 		else 
 		{
 			Mat view_gray;
 			cvtColor(imageInput,view_gray,CV_RGB2GRAY);
-			/* ÑÇÏñËØ¾«È·»¯ */
-			find4QuadCornerSubpix(view_gray,image_points_buf,Size(5,5)); //¶Ô´ÖÌáÈ¡µÄ½Çµã½øĞĞ¾«È·»¯
-			image_points_seq.push_back(image_points_buf);  //±£´æÑÇÏñËØ½Çµã
-			/* ÔÚÍ¼ÏñÉÏÏÔÊ¾½ÇµãÎ»ÖÃ */
-			drawChessboardCorners(view_gray,board_size,image_points_buf,true); //ÓÃÓÚÔÚÍ¼Æ¬ÖĞ±ê¼Ç½Çµã
-			imshow("Camera Calibration",view_gray);//ÏÔÊ¾Í¼Æ¬
-			waitKey(500);//ÔİÍ£0.5S		
+			/* äºšåƒç´ ç²¾ç¡®åŒ– */
+			find4QuadCornerSubpix(view_gray,image_points_buf,Size(5,5)); //å¯¹ç²—æå–çš„è§’ç‚¹è¿›è¡Œç²¾ç¡®åŒ–
+			image_points_seq.push_back(image_points_buf);  //ä¿å­˜äºšåƒç´ è§’ç‚¹
+			/* åœ¨å›¾åƒä¸Šæ˜¾ç¤ºè§’ç‚¹ä½ç½® */
+			drawChessboardCorners(view_gray,board_size,image_points_buf,true); //ç”¨äºåœ¨å›¾ç‰‡ä¸­æ ‡è®°è§’ç‚¹
+			imshow("Camera Calibration",view_gray);//æ˜¾ç¤ºå›¾ç‰‡
+			waitKey(500);//æš‚åœ0.5S		
 		}
 	}
 	int total = image_points_seq.size();
 	cout<<"total = "<<total<<endl;
-	int CornerNum=board_size.width*board_size.height;  //Ã¿ÕÅÍ¼Æ¬ÉÏ×ÜµÄ½ÇµãÊı
+	int CornerNum=board_size.width*board_size.height;  //æ¯å¼ å›¾ç‰‡ä¸Šæ€»çš„è§’ç‚¹æ•°
 	for (int ii=0 ; ii<total ;ii++)
 	{
-		if (0 == ii%CornerNum)// Ã¿·ùÍ¼Æ¬µÄ½Çµã¸öÊı¡£´ËÅĞ¶ÏÓï¾äÊÇÎªÁËÊä³ö Í¼Æ¬ºÅ£¬±ãÓÚ¿ØÖÆÌ¨¹Û¿´ 
+		if (0 == ii%CornerNum)// æ¯å¹…å›¾ç‰‡çš„è§’ç‚¹ä¸ªæ•°ã€‚æ­¤åˆ¤æ–­è¯­å¥æ˜¯ä¸ºäº†è¾“å‡º å›¾ç‰‡å·ï¼Œä¾¿äºæ§åˆ¶å°è§‚çœ‹ 
 		{	
 			int i = -1;
 			i = ii/CornerNum;
 			int j=i+1;
-			cout<<"--> µÚ "<<j <<"Í¼Æ¬µÄÊı¾İ --> : "<<endl;
+			cout<<"--> ç¬¬ "<<j <<"å›¾ç‰‡çš„æ•°æ® --> : "<<endl;
 		}
-		if (0 == ii%3)	// ´ËÅĞ¶ÏÓï¾ä£¬¸ñÊ½»¯Êä³ö£¬±ãÓÚ¿ØÖÆÌ¨²é¿´
+		if (0 == ii%3)	// æ­¤åˆ¤æ–­è¯­å¥ï¼Œæ ¼å¼åŒ–è¾“å‡ºï¼Œä¾¿äºæ§åˆ¶å°æŸ¥çœ‹
 		{
 			cout<<endl;
 		}
@@ -84,24 +79,24 @@ main()
 		{
 			cout.width(10);
 		}
-		//Êä³öËùÓĞµÄ½Çµã
+		//è¾“å‡ºæ‰€æœ‰çš„è§’ç‚¹
 		cout<<" -->"<<image_points_seq[ii][0].x;
 		cout<<" -->"<<image_points_seq[ii][0].y;
 	}	
-	cout<<"½ÇµãÌáÈ¡Íê³É£¡\n";
+	cout<<"è§’ç‚¹æå–å®Œæˆï¼\n";
 
-	//ÒÔÏÂÊÇÉãÏñ»ú±ê¶¨
-	cout<<"¿ªÊ¼±ê¶¨¡­¡­¡­¡­¡­¡­";
-	/*ÆåÅÌÈıÎ¬ĞÅÏ¢*/
-	Size square_size = Size(10,10);  /* Êµ¼Ê²âÁ¿µÃµ½µÄ±ê¶¨°åÉÏÃ¿¸öÆåÅÌ¸ñµÄ´óĞ¡ */
-	vector<vector<Point3f>> object_points; /* ±£´æ±ê¶¨°åÉÏ½ÇµãµÄÈıÎ¬×ø±ê */
-	/*ÄÚÍâ²ÎÊı*/
-	Mat cameraMatrix=Mat(3,3,CV_32FC1,Scalar::all(0)); /* ÉãÏñ»úÄÚ²ÎÊı¾ØÕó */
-	vector<int> point_counts;  // Ã¿·ùÍ¼ÏñÖĞ½ÇµãµÄÊıÁ¿
-	Mat distCoeffs=Mat(1,5,CV_32FC1,Scalar::all(0)); /* ÉãÏñ»úµÄ5¸ö»û±äÏµÊı£ºk1,k2,p1,p2,k3 */
-	vector<Mat> tvecsMat;  /* Ã¿·ùÍ¼ÏñµÄĞı×ªÏòÁ¿ */
-	vector<Mat> rvecsMat; /* Ã¿·ùÍ¼ÏñµÄÆ½ÒÆÏòÁ¿ */
-	/* ³õÊ¼»¯±ê¶¨°åÉÏ½ÇµãµÄÈıÎ¬×ø±ê */
+	//ä»¥ä¸‹æ˜¯æ‘„åƒæœºæ ‡å®š
+	cout<<"å¼€å§‹æ ‡å®šâ€¦â€¦â€¦â€¦â€¦â€¦";
+	/*æ£‹ç›˜ä¸‰ç»´ä¿¡æ¯*/
+	Size square_size = Size(10,10);  /* å®é™…æµ‹é‡å¾—åˆ°çš„æ ‡å®šæ¿ä¸Šæ¯ä¸ªæ£‹ç›˜æ ¼çš„å¤§å° */
+	vector<vector<Point3f>> object_points; /* ä¿å­˜æ ‡å®šæ¿ä¸Šè§’ç‚¹çš„ä¸‰ç»´åæ ‡ */
+	/*å†…å¤–å‚æ•°*/
+	Mat cameraMatrix=Mat(3,3,CV_32FC1,Scalar::all(0)); /* æ‘„åƒæœºå†…å‚æ•°çŸ©é˜µ */
+	vector<int> point_counts;  // æ¯å¹…å›¾åƒä¸­è§’ç‚¹çš„æ•°é‡
+	Mat distCoeffs=Mat(1,5,CV_32FC1,Scalar::all(0)); /* æ‘„åƒæœºçš„5ä¸ªç•¸å˜ç³»æ•°ï¼šk1,k2,p1,p2,k3 */
+	vector<Mat> tvecsMat;  /* æ¯å¹…å›¾åƒçš„æ—‹è½¬å‘é‡ */
+	vector<Mat> rvecsMat; /* æ¯å¹…å›¾åƒçš„å¹³ç§»å‘é‡ */
+	/* åˆå§‹åŒ–æ ‡å®šæ¿ä¸Šè§’ç‚¹çš„ä¸‰ç»´åæ ‡ */
 	int i,j,t;
 	for (t=0;t<image_count;t++) 
 	{
@@ -111,7 +106,7 @@ main()
 			for (j=0;j<board_size.width;j++) 
 			{
 				Point3f realPoint;
-				/* ¼ÙÉè±ê¶¨°å·ÅÔÚÊÀ½ç×ø±êÏµÖĞz=0µÄÆ½ÃæÉÏ */
+				/* å‡è®¾æ ‡å®šæ¿æ”¾åœ¨ä¸–ç•Œåæ ‡ç³»ä¸­z=0çš„å¹³é¢ä¸Š */
 				realPoint.x = i*square_size.width;
 				realPoint.y = j*square_size.height;
 				realPoint.z = 0;
@@ -120,27 +115,27 @@ main()
 		}
 		object_points.push_back(tempPointSet);
 	}
-	/* ³õÊ¼»¯Ã¿·ùÍ¼ÏñÖĞµÄ½ÇµãÊıÁ¿£¬¼Ù¶¨Ã¿·ùÍ¼ÏñÖĞ¶¼¿ÉÒÔ¿´µ½ÍêÕûµÄ±ê¶¨°å */
+	/* åˆå§‹åŒ–æ¯å¹…å›¾åƒä¸­çš„è§’ç‚¹æ•°é‡ï¼Œå‡å®šæ¯å¹…å›¾åƒä¸­éƒ½å¯ä»¥çœ‹åˆ°å®Œæ•´çš„æ ‡å®šæ¿ */
 	for (i=0;i<image_count;i++)
 	{
 		point_counts.push_back(board_size.width*board_size.height);
 	}	
-	/* ¿ªÊ¼±ê¶¨ */
+	/* å¼€å§‹æ ‡å®š */
 	calibrateCamera(object_points,image_points_seq,image_size,cameraMatrix,distCoeffs,rvecsMat,tvecsMat,0);
-	cout<<"±ê¶¨Íê³É£¡\n";
-	//¶Ô±ê¶¨½á¹û½øĞĞÆÀ¼Û
-	cout<<"¿ªÊ¼ÆÀ¼Û±ê¶¨½á¹û¡­¡­¡­¡­¡­¡­\n";
-	double total_err = 0.0; /* ËùÓĞÍ¼ÏñµÄÆ½¾ùÎó²îµÄ×ÜºÍ */
-	double err = 0.0; /* Ã¿·ùÍ¼ÏñµÄÆ½¾ùÎó²î */
-	vector<Point2f> image_points2; /* ±£´æÖØĞÂ¼ÆËãµÃµ½µÄÍ¶Ó°µã */
-	cout<<"\tÃ¿·ùÍ¼ÏñµÄ±ê¶¨Îó²î£º\n";
-	fout<<"Ã¿·ùÍ¼ÏñµÄ±ê¶¨Îó²î£º\n";
+	cout<<"æ ‡å®šå®Œæˆï¼\n";
+	//å¯¹æ ‡å®šç»“æœè¿›è¡Œè¯„ä»·
+	cout<<"å¼€å§‹è¯„ä»·æ ‡å®šç»“æœâ€¦â€¦â€¦â€¦â€¦â€¦\n";
+	double total_err = 0.0; /* æ‰€æœ‰å›¾åƒçš„å¹³å‡è¯¯å·®çš„æ€»å’Œ */
+	double err = 0.0; /* æ¯å¹…å›¾åƒçš„å¹³å‡è¯¯å·® */
+	vector<Point2f> image_points2; /* ä¿å­˜é‡æ–°è®¡ç®—å¾—åˆ°çš„æŠ•å½±ç‚¹ */
+	cout<<"\tæ¯å¹…å›¾åƒçš„æ ‡å®šè¯¯å·®ï¼š\n";
+	fout<<"æ¯å¹…å›¾åƒçš„æ ‡å®šè¯¯å·®ï¼š\n";
 	for (i=0;i<image_count;i++)
 	{
 		vector<Point3f> tempPointSet=object_points[i];
-		/* Í¨¹ıµÃµ½µÄÉãÏñ»úÄÚÍâ²ÎÊı£¬¶Ô¿Õ¼äµÄÈıÎ¬µã½øĞĞÖØĞÂÍ¶Ó°¼ÆËã£¬µÃµ½ĞÂµÄÍ¶Ó°µã */
+		/* é€šè¿‡å¾—åˆ°çš„æ‘„åƒæœºå†…å¤–å‚æ•°ï¼Œå¯¹ç©ºé—´çš„ä¸‰ç»´ç‚¹è¿›è¡Œé‡æ–°æŠ•å½±è®¡ç®—ï¼Œå¾—åˆ°æ–°çš„æŠ•å½±ç‚¹ */
 		projectPoints(tempPointSet,rvecsMat[i],tvecsMat[i],cameraMatrix,distCoeffs,image_points2);
-		/* ¼ÆËãĞÂµÄÍ¶Ó°µãºÍ¾ÉµÄÍ¶Ó°µãÖ®¼äµÄÎó²î*/
+		/* è®¡ç®—æ–°çš„æŠ•å½±ç‚¹å’Œæ—§çš„æŠ•å½±ç‚¹ä¹‹é—´çš„è¯¯å·®*/
 		vector<Point2f> tempImagePoint = image_points_seq[i];
 		Mat tempImagePointMat = Mat(1,tempImagePoint.size(),CV_32FC2);
 		Mat image_points2Mat = Mat(1,image_points2.size(), CV_32FC2);
@@ -151,31 +146,31 @@ main()
 		}
 		err = norm(image_points2Mat, tempImagePointMat, NORM_L2);
 		total_err += err/=  point_counts[i];   
-		std::cout<<"µÚ"<<i+1<<"·ùÍ¼ÏñµÄÆ½¾ùÎó²î£º"<<err<<"ÏñËØ"<<endl;   
-		fout<<"µÚ"<<i+1<<"·ùÍ¼ÏñµÄÆ½¾ùÎó²î£º"<<err<<"ÏñËØ"<<endl;   
+		std::cout<<"ç¬¬"<<i+1<<"å¹…å›¾åƒçš„å¹³å‡è¯¯å·®ï¼š"<<err<<"åƒç´ "<<endl;   
+		fout<<"ç¬¬"<<i+1<<"å¹…å›¾åƒçš„å¹³å‡è¯¯å·®ï¼š"<<err<<"åƒç´ "<<endl;   
 	}   
-	std::cout<<"×ÜÌåÆ½¾ùÎó²î£º"<<total_err/image_count<<"ÏñËØ"<<endl;   
-	fout<<"×ÜÌåÆ½¾ùÎó²î£º"<<total_err/image_count<<"ÏñËØ"<<endl<<endl;   
-	std::cout<<"ÆÀ¼ÛÍê³É£¡"<<endl;  
-	//±£´æ¶¨±ê½á¹û  	
-	std::cout<<"¿ªÊ¼±£´æ¶¨±ê½á¹û¡­¡­¡­¡­¡­¡­"<<endl;       
-	Mat rotation_matrix = Mat(3,3,CV_32FC1, Scalar::all(0)); /* ±£´æÃ¿·ùÍ¼ÏñµÄĞı×ª¾ØÕó */
-	fout<<"Ïà»úÄÚ²ÎÊı¾ØÕó£º"<<endl;   
+	std::cout<<"æ€»ä½“å¹³å‡è¯¯å·®ï¼š"<<total_err/image_count<<"åƒç´ "<<endl;   
+	fout<<"æ€»ä½“å¹³å‡è¯¯å·®ï¼š"<<total_err/image_count<<"åƒç´ "<<endl<<endl;   
+	std::cout<<"è¯„ä»·å®Œæˆï¼"<<endl;  
+	//ä¿å­˜å®šæ ‡ç»“æœ  	
+	std::cout<<"å¼€å§‹ä¿å­˜å®šæ ‡ç»“æœâ€¦â€¦â€¦â€¦â€¦â€¦"<<endl;       
+	Mat rotation_matrix = Mat(3,3,CV_32FC1, Scalar::all(0)); /* ä¿å­˜æ¯å¹…å›¾åƒçš„æ—‹è½¬çŸ©é˜µ */
+	fout<<"ç›¸æœºå†…å‚æ•°çŸ©é˜µï¼š"<<endl;   
 	fout<<cameraMatrix<<endl<<endl;   
-	fout<<"»û±äÏµÊı£º\n";   
+	fout<<"ç•¸å˜ç³»æ•°ï¼š\n";   
 	fout<<distCoeffs<<endl<<endl<<endl;   
 	for (int i=0; i<image_count; i++) 
 	{ 
-		fout<<"µÚ"<<i+1<<"·ùÍ¼ÏñµÄĞı×ªÏòÁ¿£º"<<endl;   
+		fout<<"ç¬¬"<<i+1<<"å¹…å›¾åƒçš„æ—‹è½¬å‘é‡ï¼š"<<endl;   
 		fout<<tvecsMat[i]<<endl;   
-		/* ½«Ğı×ªÏòÁ¿×ª»»ÎªÏà¶ÔÓ¦µÄĞı×ª¾ØÕó */   
+		/* å°†æ—‹è½¬å‘é‡è½¬æ¢ä¸ºç›¸å¯¹åº”çš„æ—‹è½¬çŸ©é˜µ */   
 		Rodrigues(tvecsMat[i],rotation_matrix);   
-		fout<<"µÚ"<<i+1<<"·ùÍ¼ÏñµÄĞı×ª¾ØÕó£º"<<endl;   
+		fout<<"ç¬¬"<<i+1<<"å¹…å›¾åƒçš„æ—‹è½¬çŸ©é˜µï¼š"<<endl;   
 		fout<<rotation_matrix<<endl;   
-		fout<<"µÚ"<<i+1<<"·ùÍ¼ÏñµÄÆ½ÒÆÏòÁ¿£º"<<endl;   
+		fout<<"ç¬¬"<<i+1<<"å¹…å›¾åƒçš„å¹³ç§»å‘é‡ï¼š"<<endl;   
 		fout<<rvecsMat[i]<<endl<<endl;   
 	}   
-	std::cout<<"Íê³É±£´æ"<<endl; 
+	std::cout<<"å®Œæˆä¿å­˜"<<endl; 
 	std::cout<<"dengjie_finish"<<endl; 
 	fout<<endl;
 	
