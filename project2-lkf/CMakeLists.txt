@@ -7,6 +7,6 @@ endif(COMMAND camke_policy)
 FIND_PACKAGE( OpenCV REQUIRED)
 
 #Declare teh target (an executable)
-ADD_EXECUTABLE(cal2 CameraCalibration.cpp )
+ADD_EXECUTABLE(cal2  cameraCali.cpp)
 TARGET_LINK_LIBRARIES(cal2 ${OpenCV_LIBS})
 #MESSAGE(STATUS "OpenCV_LIBS: ${OpenCV_LIBS}")

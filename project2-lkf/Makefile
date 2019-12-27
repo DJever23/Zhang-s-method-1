@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dengjie/dengjie/project/CameraCalibration/lkf
+CMAKE_SOURCE_DIR = /home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/project2-lkf
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dengjie/dengjie/project/CameraCalibration/lkf
+CMAKE_BINARY_DIR = /home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/project2-lkf
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dengjie/dengjie/project/CameraCalibration/lkf/CMakeFiles /home/dengjie/dengjie/project/CameraCalibration/lkf/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/project2-lkf/CMakeFiles /home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/project2-lkf/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dengjie/dengjie/project/CameraCalibration/lkf/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/project2-lkf/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -123,32 +123,32 @@ cal2/fast:
 	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/build
 .PHONY : cal2/fast
 
-CameraCalibration.o: CameraCalibration.cpp.o
+cameraCali.o: cameraCali.cpp.o
 
-.PHONY : CameraCalibration.o
+.PHONY : cameraCali.o
 
 # target to build an object file
-CameraCalibration.cpp.o:
-	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/CameraCalibration.cpp.o
-.PHONY : CameraCalibration.cpp.o
+cameraCali.cpp.o:
+	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/cameraCali.cpp.o
+.PHONY : cameraCali.cpp.o
 
-CameraCalibration.i: CameraCalibration.cpp.i
+cameraCali.i: cameraCali.cpp.i
 
-.PHONY : CameraCalibration.i
+.PHONY : cameraCali.i
 
 # target to preprocess a source file
-CameraCalibration.cpp.i:
-	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/CameraCalibration.cpp.i
-.PHONY : CameraCalibration.cpp.i
+cameraCali.cpp.i:
+	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/cameraCali.cpp.i
+.PHONY : cameraCali.cpp.i
 
-CameraCalibration.s: CameraCalibration.cpp.s
+cameraCali.s: cameraCali.cpp.s
 
-.PHONY : CameraCalibration.s
+.PHONY : cameraCali.s
 
 # target to generate assembly for a file
-CameraCalibration.cpp.s:
-	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/CameraCalibration.cpp.s
-.PHONY : CameraCalibration.cpp.s
+cameraCali.cpp.s:
+	$(MAKE) -f CMakeFiles/cal2.dir/build.make CMakeFiles/cal2.dir/cameraCali.cpp.s
+.PHONY : cameraCali.cpp.s
 
 # Help Target
 help:
@@ -159,9 +159,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... cal2"
 	@echo "... edit_cache"
-	@echo "... CameraCalibration.o"
-	@echo "... CameraCalibration.i"
-	@echo "... CameraCalibration.s"
+	@echo "... cameraCali.o"
+	@echo "... cameraCali.i"
+	@echo "... cameraCali.s"
 .PHONY : help
 
 
