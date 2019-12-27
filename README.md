@@ -11,7 +11,8 @@
 5.cal1--可执行文件。
 6.cali_log.txt--存储执行cal1时的log。
 7.生成result.txt文件用于存储校正参数。
-8.编译方法：
+8.project2-lkf为另一份代码和相关文件。
+9.编译方法：
 	sudo cmake .
 	sudo make
 	./cal1
