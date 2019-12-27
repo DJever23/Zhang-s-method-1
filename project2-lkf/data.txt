@@ -1,0 +1,14 @@
+./bmp/chess1.bmp
+./bmp/chess2.bmp
+./bmp/chess3.bmp
+./bmp/chess4.bmp
+./bmp/chess5.bmp
+./bmp/chess6.bmp
+./bmp/chess7.bmp
+./bmp/chess8.bmp
+./bmp/chess9.bmp
+./bmp/chess10.bmp
+./bmp/chess11.bmp
+./bmp/chess12.bmp
+./bmp/chess13.bmp
+./bmp/chess14.bmp
