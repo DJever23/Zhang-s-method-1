@@ -24,16 +24,16 @@
     cvtColor(imageInput,view_gray,CV_RGB2GRAY);
   修改：
   #include <opencv2/imgproc/types_c.h>
-
 3.image_count = 1
   filename is:/left/left01.jpg
   2222filename is:/left/left01.jpg
   image_size.width = 0
   image_size.height = 0
   terminate called after throwing an instance of 'cv::Exception'
-    what():  OpenCV(4.1.0) /home/dengjie/opencv-4.1.0/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 && step[0] > 0 in function 'locateROI'
+    what():  OpenCV(4.1.0) /home/dengjie/opencv-4.1.0/modules/core/src/matrix.cpp:757: error: (-215:Assertion failed) dims <= 2 &&           step[0] > 0 in function 'locateROI'
   修改：
   绝对路径或者相对路径才能正常读取图像信息：/home/dengjie/dengjie/project/CameraCalibration/Zhang-s-method-1/left/left01.jpg
-  或者：./left/left01.jpg
-
-4.博客：https://blog.csdn.net/DJames23/article/details/103704163
+  或者：./left/left01.jpg  
+4.存放图片路径的train.txt需要在ubuntu下新建填写或者使用以下命令生成：	
+  find /dir -name "*.jpg" > train.txt
+5.博客：https://blog.csdn.net/DJames23/article/details/103704163
