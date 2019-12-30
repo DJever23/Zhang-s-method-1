@@ -9,7 +9,7 @@
 using namespace cv;
 using namespace std;
 
-main() 
+int main() 
 {
 	ifstream fin("back.txt"); /* 标定所用图像文件的路径 */
 	ofstream fout("result_back.txt");  /* 保存标定结果的文件 */	
