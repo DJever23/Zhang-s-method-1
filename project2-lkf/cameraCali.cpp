@@ -34,7 +34,7 @@ int main()
 
 	cout << "开始提取角点......" << endl;
 	cv::Size image_size;//保存图片大小
-	cv::Size pattern_size = cv::Size(4, 6);//标定板上每行、每列的角点数；测试图片中的标定板上内角点数为4*6
+	cv::Size pattern_size = cv::Size(6, 4);//标定板上每行、每列的角点数；测试图片中的标定板上内角点数为4*6
 	vector<cv::Point2f> corner_points_buf;//建一个数组缓存检测到的角点，通常采用Point2f形式
 	vector<cv::Point2f>::iterator corner_points_buf_ptr;
 	vector<vector<cv::Point2f>> corner_points_of_all_imgs;
