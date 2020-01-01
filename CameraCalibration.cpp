@@ -23,6 +23,9 @@ int main()
 	vector<Point2f> image_points_buf;  /* 缓存每幅图像上检测到的角点坐标 */
 	vector<vector<Point2f>> image_points_seq; /* 保存检测到的所有角点 */
 	string filename;
+	string image_gray;
+	stringstream Str;
+	int a=0;
 	int count= 0 ;//用于存储角点个数。
 	while (getline(fin,filename))
 	{
@@ -54,6 +57,16 @@ int main()
 			/* 在图像上显示角点位置 */
 			drawChessboardCorners(view_gray,board_size,image_points_buf,true); //用于在图片中标记角点并显示
 			imshow("Camera Calibration",view_gray);//显示图片
+			string outpath_gray="./out_gray/";
+                
+                 	Str.clear();//清除缓存
+                 	Str << a + 1;
+                 	Str >> image_gray;
+                 	outpath_gray="./out_gray/";
+                 	outpath_gray += image_gray;
+                 	outpath_gray += "_gray.jpg";
+		 	a++;
+			imwrite(outpath_gray,view_gray);//存储角点灰度图
 			waitKey(500);//暂停0.5S		
 		}
 		cout << "count = " << count<< endl;//显示角点累加后的角点数
