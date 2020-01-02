@@ -5,14 +5,16 @@
 
 主要包含：
 1.CameraCalibration.cpp--标定文件。
-2.left.zip--存放标定的图像。
-3.calibdata.txt--存放用于标定的图像路径。
-4.CMakeLists.txt--编译文件。
-5.cal1--可执行文件。
-6.cali_log.txt--存储执行cal1时的log。
-7.生成result.txt文件用于存储校正参数。
-8.project2-lkf为另一份代码和相关文件。
-9.编译方法：
+2.back文件夹--存放标定的图像。
+3.out_back文件夹--保存矫正后的图片
+4.out_gray文件夹--保存绘制角点时的灰度图
+5.result_back.txt--存放用于标定的图像路径。
+6.CMakeLists.txt--编译文件。
+7.cal1--可执行文件。
+8.cali_log.txt--存储执行cal1时的log。
+9.生成result_back.txt文件用于存储校正参数。
+10.project2-lkf为另一份代码和相关文件。
+11.编译方法：
 	sudo cmake .
 	sudo make
 	./cal1
