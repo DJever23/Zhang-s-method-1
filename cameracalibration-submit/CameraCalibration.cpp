@@ -15,10 +15,8 @@ int main()
 	ofstream fout("result_back.txt");  /* 保存标定结果的文件 */	
 	//读取每一幅图像，从中提取出角点，然后对角点进行亚像素精确化	
 	cout<<"开始提取角点………………\n";
-	//cout<<"dengjie1\n";
 	int image_count=0;  /* 图像数量 */
 	Size image_size;  /* 图像的尺寸 */
-	//Size board_size = Size(9,6);    /* left文件夹里标定板上每行、列的角点数 */
 	Size board_size = Size(11,7);
 	vector<Point2f> image_points_buf;  /* 缓存每幅图像上检测到的角点坐标 */
 	vector<vector<Point2f>> image_points_seq; /* 保存检测到的所有角点 */
@@ -76,13 +74,6 @@ int main()
 	int CornerNum=board_size.width*board_size.height;  //每张图片上总的角点数
 	for (int ii=0 ; ii<total ;ii++)
 	{
-		/*//在result.txt中写入每个角点的像素坐标
-		fout<<"第"<<ii+1<<"张图片所有角点的像素坐标:"<<endl;
-		for(int jj=0;jj<CornerNum;jj++)
-		{
-			fout<<"("<<image_points_seq[ii][jj].x<<","<<image_points_seq[ii][0].y<<"),  ";
-			fout<<endl;
-		}*/
 		if (0 == ii%CornerNum)//在第一幅图时输出以下log
 		{	
 			cout<<endl;
@@ -112,7 +103,6 @@ int main()
 	//以下是摄像机标定
 	cout<<"开始标定………………"<<endl;
 	/*棋盘三维信息*/
-	//Size square_size = Size(10,10);  /* left文件夹中实际测量得到的标定板上每个棋盘格的大小,单位mm*/
 	Size square_size = Size(19,19);  /* 实际测量得到的标定板上每个棋盘格的大小,单位mm*/
 	vector<vector<Point3f>> object_points; /* 保存标定板上角点的三维坐标 */
 	/*内外参数*/
@@ -172,10 +162,7 @@ int main()
 		for (int j = 0 ; j < tempImagePoint.size(); j++)
 		{
 			image_points2Mat.at<Vec2f>(0,j) = Vec2f(image_points2[j].x, image_points2[j].y);
-			/*Vec2f是2通道float类型的向量，访问映射矩阵,把映射的角点数 个点的xy坐标赋给一个2通道的浮点型向量(0,j),第一行第j个坐标，image_points2Mat
-			访问了这些新坐标*/
 			tempImagePointMat.at<Vec2f>(0,j) = Vec2f(tempImagePoint[j].x, tempImagePoint[j].y);
-			//访问原矩阵，Mat类中的at方法作用:用于获取图像矩阵某点的值或改变某点的值
 		}
 		err = norm(image_points2Mat, tempImagePointMat, NORM_L2);//求原坐标与投影坐标的L2范数，即欧氏距离
 		err /= point_counts[i];//每个角点的误差，相当于是每幅图每个角点的平均误差
@@ -219,8 +206,6 @@ int main()
         	initUndistortRectifyMap(cameraMatrix, distCoeffs, R, cameraMatrix, image_size, CV_32FC1, mapx, mapy);//用来计算畸变映射
         	StrStm.clear();//清除缓存
         	imageFileName.clear();
-        	//string filePath = "./distorsion/";
-		//string filePath = "./left/left";
 		string filePath = "./back/";
         	StrStm << i + 1;
         	StrStm >> imageFileName;
@@ -228,10 +213,8 @@ int main()
         	filePath += ".jpg";//获取图片路径
         	Mat imageSource = imread(filePath);
         	Mat newimage = imageSource.clone();
-        	//另一种不需要转换矩阵的方式
-        	//undistort(imageSource,newimage,cameraMatrix,distCoeffs);//矫正方法一，与initUndistortRectifyMap结合使用把求得的映射应用到图像上
         	remap(imageSource, newimage, mapx, mapy, INTER_LINEAR);
-		/*矫正方法二，第5个参数为插值方式，有四中插值方式：INTER_NEAREST——最近邻插值，INTER_LINEAR——双线性插值，
+		/*第5个参数为插值方式，有四中插值方式：INTER_NEAREST——最近邻插值，INTER_LINEAR——双线性插值，
 		INTER_CUBIC——双三样条插值，INTER_LANCZOS4——lanczos插值*/
         	imshow("原始图像", imageSource);
         	imshow("矫正后图像", newimage);
